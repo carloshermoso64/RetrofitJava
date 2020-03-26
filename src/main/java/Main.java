@@ -31,20 +31,26 @@ public class Main {
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.github.com/")
+  //                  .baseUrl("https://api.github.com/")
+                    .baseUrl("http://localhost:8080/dsaApp/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
 
-            GitHubService service = retrofit.create(GitHubService.class);
+ //           GitHubService service = retrofit.create(GitHubService.class);
+            RestExampleService service = retrofit.create(RestExampleService.class);
 
-            Call<List<Repo>> repos = service.listRepos(username);
+  //          Call<List<Repo>> repos = service.listRepos(username);
+            Call<List<Stats>> stats = service.listStats();
 
             try{
-                List<Repo> result = repos.execute().body();
-
-                for (Repo r: result){
-                    System.out.println(r);
+            //    List<Repo> result = repos.execute().body();
+                List<Stats> result = stats.execute().body();
+  //              for (Repo r: result){
+  //                  System.out.println(r);
+  //              }
+                for (Stats s: result){
+                    System.out.println(s);
                 }
             }
             catch (Exception e){
